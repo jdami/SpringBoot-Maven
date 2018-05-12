@@ -16,6 +16,7 @@
 		<module>SpringBoot-Maven-03-Thymeleaf</module>
 		<module>SpringBoot-Maven-04-Freemarker</module>
 		<module>SpringBoot-Maven-05-Static</module>
+		<module>SpringBoot-Maven-06-JSP</module>
 	</modules>
 
 	<parent>
