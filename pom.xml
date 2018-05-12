@@ -15,6 +15,7 @@
 		<module>SpringBoot-Maven-02-Value-Random</module>
 		<module>SpringBoot-Maven-03-Thymeleaf</module>
 		<module>SpringBoot-Maven-04-Freemarker</module>
+		<module>SpringBoot-Maven-05-Static</module>
 	</modules>
 
 	<parent>
