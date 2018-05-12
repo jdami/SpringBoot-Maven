@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: SpringBoot-Maven-03-Thymeleaf
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Somnus
+Implementation-Vendor-Id: com.somnus
+Build-Jdk: 1.8.0_111
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/SpringBoot-Maven/SpringBoot-Maven-03-Thymeleaf
+Created-By: Maven Integration for Eclipse
+

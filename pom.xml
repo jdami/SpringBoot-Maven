@@ -13,6 +13,8 @@
 	<modules>
 		<module>SpringBoot-Maven-01-HelloWorld</module>
 		<module>SpringBoot-Maven-02-Value-Random</module>
+		<module>SpringBoot-Maven-03-Thymeleaf</module>
+		<module>SpringBoot-Maven-04-Freemarker</module>
 	</modules>
 
 	<parent>
