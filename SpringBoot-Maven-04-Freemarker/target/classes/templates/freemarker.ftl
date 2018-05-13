@@ -8,6 +8,6 @@ body{ text-align:center}
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h3>欢迎  ${name} ,当前时间： ${date } </h3>
+	<h3>欢迎  ${name} ,当前时间： ${date}</h3>
 </body>
 </html>
