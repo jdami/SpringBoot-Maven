@@ -24,6 +24,7 @@
 		<module>SpringBoot-Maven-08-Scheduled</module>
 		<module>SpringBoot-Maven-09-Aop</module>
 		<module>SpringBoot-Maven-10-Jdbc</module>
+		<module>SpringBoot-Maven-10-Jpa</module>
 	</modules>
 
 	<parent>

@@ -1,0 +1,11 @@
+spring: 
+  jpa: 
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop 
+                          
+  datasource: 
+    url: jdbc:mysql://121.43.162.28:3306/sara
+    username: root
+    password: passw0rd
+    driver-class-name:  com.mysql.jdbc.Driver
