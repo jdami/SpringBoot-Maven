@@ -8,17 +8,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>SpringBoot-Maven-03-Thymeleaf</artifactId>
+	<artifactId>SpringBoot-Maven-08-Scheduled</artifactId>
 	<packaging>war</packaging>
 	
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-	</dependencies>
-	
 	<build>
-		<finalName>SpringBoot-Maven-03-Thymeleaf</finalName>
+		<finalName>SpringBoot-Maven-08-Scheduled</finalName>
 	</build>
 </project>

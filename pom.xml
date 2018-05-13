@@ -19,6 +19,8 @@
 		<module>SpringBoot-Maven-06-JSP</module>
 		<module>SpringBoot-Maven-06-JSP-Profile-Properties</module>
 		<module>SpringBoot-Maven-06-JSP-Profile-YML</module>
+		<module>SpringBoot-Maven-07-Async</module>
+		<module>SpringBoot-Maven-08-Scheduled</module>
 	</modules>
 
 	<parent>
@@ -33,6 +35,19 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
