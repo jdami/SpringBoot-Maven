@@ -17,7 +17,7 @@ public class CityDao{
     private JdbcTemplate jdbcTemplate;
 
 	public City findByCityName(String cityName) {
-		return jdbcTemplate.queryForObject("select id, city_name, description from t_city where city_name = ?", new Object[]{cityName},new RowMapper<City>(){
+		return jdbcTemplate.queryForObject("select id, city_name, description from t_city_temp where city_name = ?", new Object[]{cityName},new RowMapper<City>(){
 
 			@Override
 			public City mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -32,11 +32,11 @@ public class CityDao{
 	}
 
 	public int saveCity(String cityName, String description) {
-		return jdbcTemplate.update("insert into t_city (city_name, description) values (?, ?)", cityName, description);
+		return jdbcTemplate.update("insert into t_city_temp (city_name, description) values (?, ?)", cityName, description);
     };
 
 	public int removeByCityName(String cityName) {
-		return jdbcTemplate.update("delete from t_city where city_name = ?", cityName);
+		return jdbcTemplate.update("delete from t_city_temp where city_name = ?", cityName);
 	}
 
 }
