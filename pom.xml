@@ -20,6 +20,7 @@
 		<module>SpringBoot-Maven-06-JSP-Profile-Properties</module>
 		<module>SpringBoot-Maven-06-JSP-Profile-YML</module>
 		<module>SpringBoot-Maven-07-Async</module>
+		<module>SpringBoot-Maven-07-Async-Event</module>
 		<module>SpringBoot-Maven-08-Scheduled</module>
 	</modules>
 
