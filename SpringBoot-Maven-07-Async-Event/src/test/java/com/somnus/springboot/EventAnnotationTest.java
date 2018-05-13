@@ -1,9 +1,14 @@
 package com.somnus.springboot;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -12,6 +17,10 @@ import com.somnus.springboot.event.EmailEvent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class EventAnnotationTest {
+	
+	/** 父子容器都可以注入 */
+	@Autowired  
+    private ApplicationContext applicationConnect;
 	
 	@Autowired  
     private WebApplicationContext webApplicationConnect;
@@ -24,14 +33,16 @@ public class EventAnnotationTest {
 	@Test
 	public void handleEmail(){
 		//满足条件，会触发
-		webApplicationConnect.publishEvent(new EmailEvent(this, "10000@qq.com", "I love you"));
+		applicationConnect.publishEvent(new EmailEvent(this, "10000@qq.com", "I love you"));
 		
 		System.out.println("上面的，你走你的异步去，我已经执行了，come on！");
-		try {
-			//防止Spring容器过早的关闭
-			Thread.sleep(Integer.MAX_VALUE);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+        try {
+			String source = bf.readLine();
+			System.out.println(source);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

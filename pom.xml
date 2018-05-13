@@ -22,6 +22,7 @@
 		<module>SpringBoot-Maven-07-Async</module>
 		<module>SpringBoot-Maven-07-Async-Event</module>
 		<module>SpringBoot-Maven-08-Scheduled</module>
+		<module>SpringBoot-Maven-09-Aop</module>
 	</modules>
 
 	<parent>

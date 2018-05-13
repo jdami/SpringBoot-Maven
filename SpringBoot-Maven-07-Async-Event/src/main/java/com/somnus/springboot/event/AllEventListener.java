@@ -12,7 +12,7 @@ public class AllEventListener {
 	public void handleEmail(EmailEvent event) {
 		try {
 			System.out.println("让程序暂停1分钟，相当于执行一个很耗时的任务");
-            Thread.sleep(60000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
