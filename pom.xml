@@ -11,6 +11,7 @@
 	<description>Demo project for Spring Boot</description>
 	
 	<modules>
+		<module>SpringBoot-Maven-00-BlockChain</module>
 		<module>SpringBoot-Maven-01-HelloWorld</module>
 		<module>SpringBoot-Maven-02-Value-Random</module>
 		<module>SpringBoot-Maven-03-Thymeleaf</module>
