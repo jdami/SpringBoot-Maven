@@ -22,6 +22,7 @@ import org.springframework.util.StopWatch;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.tx.Contract;
@@ -46,6 +47,9 @@ public class BlockChainSampleTest {
 	@Autowired
 	private Web3j web3j;
 	
+	@Autowired
+	private Admin admin;
+	
 	private CountDownLatch cdl = new CountDownLatch(3);
 	
 	private StopWatch sw = new StopWatch();
@@ -64,7 +68,9 @@ public class BlockChainSampleTest {
 	
 	@Test
 	public void initUser() throws Exception {
-		
+		for(int i = 1; i <=100; i++) {
+			admin.personalNewAccount("123456");
+		}
 	}
 	
 	@Test
