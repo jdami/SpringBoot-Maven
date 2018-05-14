@@ -70,7 +70,7 @@ public class BlockChainSampleTest {
 	@Test
 	public void initUser() throws Exception {
 		for(int i = 1; i <=100; i++) {
-			String address = admin.personalNewAccount("123456").send().getAccountId();
+			String address = admin.personalNewAccount("123456").sendAsync().get().getAccountId();
 			System.out.println(address);
 		}
 	}
