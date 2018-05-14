@@ -31,6 +31,9 @@ contract greeter is mortal {
     function greet() constant returns (string) {
         return greeting;
     }
+    function write(string _greeting) public{
+        greeting = _greeting;
+    }
 
     /* we include indexed events to demonstrate the difference that can be
     captured versus non-indexed */

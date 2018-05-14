@@ -46,7 +46,7 @@ public class BlockChainSampleTest {
 	@Autowired
 	private Web3j web3j;
 	
-	private CountDownLatch cdl = new CountDownLatch(2);
+	private CountDownLatch cdl = new CountDownLatch(3);
 	
 	private StopWatch sw = new StopWatch();
 	
@@ -63,21 +63,76 @@ public class BlockChainSampleTest {
 	}
 	
 	@Test
+	public void initUser() throws Exception {
+		
+	}
+	
+	@Test
 	public void transfer() throws Exception {
 		Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
         log.info("Credentials loaded");
         
-		log.info("Sending 1 Ether (" + Convert.toWei("100", Convert.Unit.ETHER).toPlainString() + " wei)");
+		log.info("Sending 1 Ether (" + Convert.toWei("100", Convert.Unit.ETHER).toPlainString() + " Wei)");
         TransactionReceipt transferReceipt = Transfer.sendFunds(
                 web3j, credentials,
-                "0xd3cb317c04230af21759cde39198b1e14130aa5f", 
+                "0x364008b1171a65823900a445e5c9a814d3c45a64",
                 BigDecimal.ONE, Convert.Unit.ETHER).send();
         log.info("Transaction complete, view it at https://rinkeby.etherscan.io/tx/"
                 + transferReceipt.getTransactionHash());
 	}
 	
+	/**
+	 * 挖矿地址给不同地址转账
+	 */
 	@Test
-	public void run() throws Exception {
+	public void transferBatch() throws Exception {
+		for(int i = 1; i <=100; i++) {
+			Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
+			log.info("Credentials loaded");
+			
+			log.info("Sending 1 Ether (" + Convert.toWei("10", Convert.Unit.ETHER).toPlainString() + " Wei)");
+			TransactionReceipt transferReceipt = Transfer.sendFunds(
+			        web3j, credentials,
+			        "0x3299170f239b7f90c29517293c6234aa1139f254", 
+			        BigDecimal.ONE, Convert.Unit.ETHER).send();
+			log.info("Transaction complete, view it at https://rinkeby.etherscan.io/tx/"
+			        + transferReceipt.getTransactionHash());
+		}
+	}
+	
+	/**
+	 * 不同的地址给同一个地址转账
+	 */
+	@Test
+	public void transferBatch2() throws Exception {
+		ExecutorService executor = Executors.newCachedThreadPool();
+		for (int i = 1; i <=100; i++) {
+			Credentials credentials = WalletUtils.loadCredentials(password,BundleUtil.getString("web3j.walletPath"+i));
+	        log.info("Credentials loaded");
+			executor.execute(() -> {
+				for(int j = 0; j < 1000; j++) {
+					log.info("Credentials loaded");
+					
+					log.info("Sending 1 Wei (" + Convert.fromWei("1", Convert.Unit.ETHER).toPlainString() + " Ether)");
+					try {
+						TransactionReceipt transferReceipt = Transfer.sendFunds(
+						        web3j, credentials,
+						        "0x3299170f239b7f90c29517293c6234aa1139f254", 
+						        BigDecimal.ONE, Convert.Unit.ETHER).send();
+						log.info("Transaction complete, view it at https://rinkeby.etherscan.io/tx/"
+						        + transferReceipt.getTransactionHash());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				cdl.countDown();
+			});
+		}
+		cdl.await();
+	}
+	
+	@Test
+	public void deploy() throws Exception {
         Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
         log.info("Credentials loaded");
 
@@ -98,7 +153,7 @@ public class BlockChainSampleTest {
         log.info("Smart contract deployed to address " + contractAddress);
 
         long start = System.currentTimeMillis();
-        TransactionReceipt tran = contract.greet2().send();
+        TransactionReceipt tran = contract.write(msg).send();
         long end = System.currentTimeMillis();
         log.info("\r\n 消耗时间:" +(end - start) + "-->TransactionHash:"+ tran.getTransactionHash() +"\r\n" +
 				"BlockHash:" + tran.getBlockHash()+"\r\n" +
@@ -110,9 +165,9 @@ public class BlockChainSampleTest {
 	@Test
 	public void batchInsert() throws Exception {
 		ExecutorService executor = Executors.newCachedThreadPool();
-		for (int i = 1; i <=1; i++) {
+		for (int i = 1; i <=3; i++) {
 			final int taskID = i;
-			Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
+			Credentials credentials = WalletUtils.loadCredentials(password,BundleUtil.getString("web3j.walletPath"+i));
 	        log.info("Credentials loaded");
 			executor.execute(() -> {
 				for (int j = 0; j < 10; j++) {
@@ -123,14 +178,14 @@ public class BlockChainSampleTest {
 										Thread.currentThread().getContextClassLoader().getResource("solidity/param/128BYTE.txt").getPath()),
 										"UTF-8");
 						System.out.println("--------------------------------" + msg.getBytes().length + "byte");
-				        GreeterContract contract = GreeterContract.load("0xb1ac7167e3f13c8f8aad9be2a01e80999c206569",
+				        GreeterContract contract = GreeterContract.load("0xdf4c3e660789e2fe4640969f3a6770d918c83554",
 				                web3j, credentials,
 				                ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
 
 				        long start = System.currentTimeMillis();
-				        TransactionReceipt tran = contract.greet2().send();
+				        TransactionReceipt tran = contract.write(msg).send();
 				        long end = System.currentTimeMillis();
-				        log.info("\r\n 消耗时间:" +(end - start) + "-->TransactionHash:"+ tran.getTransactionHash() +"\r\n" +
+				        log.info("\r\n 用户:" +taskID +"-->" +"\r\n 消耗时间:" +(end - start) + "-->TransactionHash:"+ tran.getTransactionHash() +"\r\n" +
 								"BlockHash:" + tran.getBlockHash()+"\r\n" +
 								"BlockNumber:" + tran.getBlockNumber()+"\r\n" +
 								"GasUsed:" + tran.getGasUsed());
@@ -143,6 +198,7 @@ public class BlockChainSampleTest {
 		}
 		cdl.await();
 	}
+	
 	
 	@After
     public void after() {
