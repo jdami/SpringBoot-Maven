@@ -3,6 +3,7 @@ package com.somnus.springboot;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -69,7 +70,8 @@ public class BlockChainSampleTest {
 	@Test
 	public void initUser() throws Exception {
 		for(int i = 1; i <=100; i++) {
-			admin.personalNewAccount("123456");
+			String address = admin.personalNewAccount("123456").send().getAccountId();
+			System.out.println(address);
 		}
 	}
 	
@@ -97,9 +99,10 @@ public class BlockChainSampleTest {
 			log.info("Credentials loaded");
 			
 			log.info("Sending 1 Ether (" + Convert.toWei("10", Convert.Unit.ETHER).toPlainString() + " Wei)");
+			List<String> list = admin.personalListAccounts().send().getAccountIds();
 			TransactionReceipt transferReceipt = Transfer.sendFunds(
 			        web3j, credentials,
-			        "0x3299170f239b7f90c29517293c6234aa1139f254", 
+			        list.get(i),
 			        BigDecimal.ONE, Convert.Unit.ETHER).send();
 			log.info("Transaction complete, view it at https://rinkeby.etherscan.io/tx/"
 			        + transferReceipt.getTransactionHash());
