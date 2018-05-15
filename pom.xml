@@ -27,6 +27,7 @@
 		<module>SpringBoot-Maven-10-Jdbc</module>
 		<module>SpringBoot-Maven-11-Jpa</module>
 		<module>SpringBoot-Maven-12-MyBatis</module>
+		<module>SpringBoot-Maven-13-Multiple</module>
 	</modules>
 
 	<parent>
