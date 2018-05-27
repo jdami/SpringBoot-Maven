@@ -29,6 +29,7 @@
 		<module>SpringBoot-Maven-12-MyBatis</module>
 		<module>SpringBoot-Maven-13-Multiple</module>
 		<module>SpringBoot-Maven-14-Redis</module>
+		<module>SpringBoot-Maven-15-ActiveMQ</module>
 	</modules>
 
 	<parent>

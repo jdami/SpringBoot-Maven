@@ -1,0 +1,10 @@
+spring: 
+  activemq:
+    broker-url: failover:(tcp://121.43.162.28:61616)?Randomize=false
+
+jms:
+  somnus: 
+    string: 
+      sample: jms.somnus.string.sample?consumer.prefetchSize=50
+    object: 
+      sample: jms.somnus.object.sample?consumer.prefetchSize=50  
