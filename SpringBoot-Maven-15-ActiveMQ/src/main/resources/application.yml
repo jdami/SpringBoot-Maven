@@ -1,7 +1,12 @@
 spring: 
   activemq:
     broker-url: failover:(tcp://121.43.162.28:61616)?Randomize=false
-
+    in-memory: false
+    send-timeout: 3000
+    close-timeout: 5000
+    pool:
+      enabled: false
+      max-connections: 100
 jms:
   somnus: 
     string: 

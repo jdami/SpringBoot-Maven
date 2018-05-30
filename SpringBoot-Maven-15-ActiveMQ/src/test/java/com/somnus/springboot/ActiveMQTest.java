@@ -50,6 +50,7 @@ public class ActiveMQTest {
     
     /**
 	 * 用来测试发送对象类型的消息
+	 * https://blog.csdn.net/g39173/article/details/53538484
 	 */
     @Test
     public void sendObjectMessage() {
