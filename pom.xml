@@ -31,6 +31,7 @@
 		<module>SpringBoot-Maven-13-Multiple</module>
 		<module>SpringBoot-Maven-14-Redis</module>
 		<module>SpringBoot-Maven-15-ActiveMQ</module>
+		<module>SpringBoot-Maven-16-RabbitMQ</module>
 	</modules>
 
 	<parent>
