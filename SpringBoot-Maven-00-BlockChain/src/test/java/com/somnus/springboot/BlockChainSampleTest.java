@@ -1,7 +1,6 @@
 package com.somnus.springboot;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -39,6 +38,7 @@ import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.NewAccountIdentifier;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -100,9 +100,17 @@ public class BlockChainSampleTest {
 	}
 
 	@Test
-	public void getClientVersion() throws IOException {
+	public void getClientVersion() throws Exception {
 		Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
 		System.out.println(web3ClientVersion.getWeb3ClientVersion());
+		
+		System.out.println(JSON.toJSONString(web3j.ethGetBlockByNumber(
+				new DefaultBlockParameterNumber(44), true).sendAsync().get(),true));
+		
+		System.out.println(JSON.toJSONString(web3j.ethGetTransactionByHash("0x1cd8e99baed19a378c0189ec93481c396e54c6e1bd09e5bf8a44ff9a1ffb9ecf").sendAsync().get(),true));
+		
+		System.out.println(JSON.toJSONString(web3j.ethGetTransactionByBlockNumberAndIndex(
+				new DefaultBlockParameterNumber(44), new BigInteger("0")).sendAsync().get(),true));
 	}
 	
 	@Test
@@ -111,7 +119,7 @@ public class BlockChainSampleTest {
 		for(int i = 1; i <=20; i++) {
 			/*stringRedisTemplate.opsForValue().set(list.get(i), "-1");*/
 			/*stringRedisTemplate.opsForValue().increment(list.get(i), 1);*/
-			System.out.println(i+"-->"+list.get(i)+"-->"+stringRedisTemplate.opsForValue().get(list.get(i)));
+			System.out.println(i+"-redis->"+list.get(i)+"-->"+stringRedisTemplate.opsForValue().get(list.get(i)));
 		}
 	}
 	
@@ -130,7 +138,7 @@ public class BlockChainSampleTest {
 					list.get(i),
 					DefaultBlockParameterName.PENDING).sendAsync().get();
 			BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-			System.out.println(i+"-->"+list.get(i)+"-->期望的nonce:"+nonce);
+			System.out.println(i+"-nonce->"+list.get(i)+"-->期望的nonce:"+nonce);
 		}
 	}
 	
@@ -248,50 +256,18 @@ public class BlockChainSampleTest {
 			executor.execute(() -> {
 				try {
 					for(int j = 1; j <= 100; j++) {
-						long nonce = 0;
+						/*long nonce = 0;
 						synchronized (personalUnlockAccount){
 							nonce = stringRedisTemplate.opsForValue().increment(list.get(userID), 1);
-						}
+							System.out.println("userid:" + userID + "-->" + j + "-->" + nonce);
+						}*/
+						long nonce = stringRedisTemplate.opsForValue().increment(list.get(userID), 1);
+						/*System.out.println("userid:" + userID + "-->" + j + "-->" + nonce);*/
 						if (personalUnlockAccount.accountUnlocked()) {
 							RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
 									BigInteger.valueOf(nonce), 
 									ManagedTransaction.GAS_PRICE, 
-									Contract.GAS_LIMIT, 
-									web3j.ethCoinbase().sendAsync().get().getAddress(), //转给挖矿账户
-									new BigInteger(Convert.fromWei("1", Convert.Unit.WEI).toPlainString()));
-							byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-							String hexValue = Numeric.toHexString(signedMessage);
-							EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-							log.info(ethSendTransaction.getTransactionHash()+"-->"+JSON.toJSONString(ethSendTransaction));
-						}
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				} 
-		        cdl.countDown();
-			});
-		}
-		cdl.await();
-		executor.shutdown();
-	}
-	
-	@Test
-	public void transferBatch4_first() throws Exception {
-		ExecutorService executor = Executors.newCachedThreadPool();
-		for (int i = 13; i <=13; i++) {
-			List<String> list = admin.personalListAccounts().send().getAccountIds();
-			String path = BundleUtil.getString("web3j.walletPath"+i);
-			Credentials credentials = WalletUtils.loadCredentials(password,path);
-			//解锁账户
-			PersonalUnlockAccount personalUnlockAccount = admin.personalUnlockAccount(list.get(i),password).sendAsync().get();
-			executor.execute(() -> {
-				try {
-					for(int j = 1; j <= 1; j++) {
-						if (personalUnlockAccount.accountUnlocked()) {
-							RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-									BigInteger.valueOf(142), 
-									ManagedTransaction.GAS_PRICE, 
-									Contract.GAS_LIMIT, 
+									BigInteger.valueOf(50_000), 
 									web3j.ethCoinbase().sendAsync().get().getAddress(), //转给挖矿账户
 									new BigInteger(Convert.fromWei("1", Convert.Unit.WEI).toPlainString()));
 							byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
