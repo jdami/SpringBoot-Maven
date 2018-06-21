@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html;charset=UTF-8"/>
+	<title>转账流水管理</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv ="Pragma" content = "no-cache"/>
+	<meta http-equiv="Cache-Control" content="no cache" />
+	<meta http-equiv="Expires" content="0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<script src="https://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+	<link href="https://cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../plugins/layui/css/layui.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="../../css/fs.css" media="all"/>
+	<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="../../plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugins/frame/js/fsDict.js?v=1.5.0"></script>
+	<script type="text/javascript" src="../../plugins/frame/js/fs.js?v=1.5.0"></script>
+	<script type="text/javascript" src="../../plugins/frame/js/frame.js?v=1.5.0"></script>
+</head>
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space1">
+			<div class="layui-col-md12">
+				<div class="layui-form-query">
+					<form class="layui-form" id="query_form">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">商户名称：</label>
+								<div class="layui-input-inline" style="width: 150px;">
+									<input type="text" name="merchantName" autocomplete="off" class="layui-input" placeholder="请输入商户名称"/>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">源客户姓名：</label>
+								<div class="layui-input-inline" style="width: 150px;">
+									<input type="text" name="from_customer_name" autocomplete="off" class="layui-input" placeholder="请输入源客户姓名"/>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">目标客户姓名：</label>
+								<div class="layui-input-inline" style="width: 150px;">
+									<input type="text" name="to_customer_name" autocomplete="off" class="layui-input" placeholder="请输入目标客户姓名"/>
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">交易流水号：</label>
+								<div class="layui-input-inline" style="width: 150px;">
+									<input type="text" name="trxNo" autocomplete="off" class="layui-input" placeholder="请输入交易流水号"/>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">状态：</label>
+								<div class="layui-input-inline" style="width: 150px;">
+									<select name="state">
+										<option value="">请选择</option>
+										<option value="1">交易处理中</option>
+								        <option value="2">交易成功</option>
+								        <option value="3">交易失败</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">创建时间：</label>
+								<div class="layui-input-inline" style="">
+									<input type="text" name="startTime" autocomplete="off" class="layui-input fsDate" placeholder="yyyy-MM-dd" />
+								</div>
+								<div class="layui-form-mid">至</div>
+								<div class="layui-input-inline" style="">
+									<input type="text" name="endTime" autocomplete="off" class="layui-input fsDate" placeholder="yyyy-MM-dd" />
+								</div>
+							</div>
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
+									<button class="layui-btn layui-btn-primary" type="reset"><i class="layui-icon">&#xe669;</i>重置</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+  	 		</div>
+  	 		<div class="layui-col-md12">
+  	 			<div class="layui-row grid-demo">
+					<div class="layui-col-md12">
+						<table id="fsDatagrid" lay-filter="fsDatagrid" class="fsDatagrid" isLoad="1" url="/fsbus/1000" 
+								isPage="1" defaultForm="query_form" height="full-135"></table>
+						<div class="fsDatagridCols">
+	         					<p type="numbers" title="序号"/>
+								<!-- <p checkbox="true"/> -->
+			    				<p field="trx_no" 				title="交易流水号"		width="250" sort="true" />
+			    				<p field="merchant_name" 		title="商户名称"		width="200" />
+			    				<p field="from_customer_name" 	title="源客户姓名"		width="180" />
+			    				<p field="to_customer_name" 	title="目标客户姓名"	width="180" />
+			    				<p field="eth_amount" 			title="转账金额"		width="180" />
+			    				<p field="currency" 			title="币种" 			width="120" />
+			    				<p field="state" 				title="状态"			width="100" dict="state"/>
+			    				<p field="gmt_create" 			title="创建时间"		width="180" />
+			    				<p fixed="right" 				title="操作"			width="200" align="center" toolbar="#barDemo" />
+						</div>
+			
+						<script type="text/html" id="stateTpl">
+							<input type="checkbox" name="state" lay-skin="switch" disabled lay-text="正常|禁用" {{ d.state == 1 ? 'checked' : '' }}>
+						</script>
+						<script type="text/html" id="barDemo">
+							<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="top" topUrl="views/trade/tradeTokenTransferDetail.html" topMode="readonly" topWidth="1000px" topHeight="600px" topTitle="详情" inputs="id:">详细信息</a>
+						</script>
+					</div>
+	    		</div>
+  	 		</div>
+  		</div>
+	</div>
+</body>
+</html>
