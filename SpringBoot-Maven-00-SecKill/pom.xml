@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>SpringBoot-Maven-14-Redis</artifactId>
+	<artifactId>SpringBoot-Maven-00-SecKill</artifactId>
 	<packaging>war</packaging>
 	
 	<dependencies>
@@ -17,20 +17,9 @@
 			<artifactId>spring-boot-starter-redis</artifactId>
 			<version>1.4.7.RELEASE</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.redisson</groupId>
-		    <artifactId>redisson</artifactId>
-		    <version>3.7.5</version>
-		</dependency>
-		
-		<dependency>
-    		<groupId>io.netty</groupId>
-    		<artifactId>netty-all</artifactId>
-    	</dependency>
 	</dependencies>
 	
 	<build>
-		<finalName>SpringBoot-Maven-14-Redis</finalName>
+		<finalName>SpringBoot-Maven-00-SecKill</finalName>
 	</build>
 </project>
