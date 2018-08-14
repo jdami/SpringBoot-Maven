@@ -12,7 +12,6 @@
 	
 	<modules>
 		<module>SpringBoot-Maven-00-BlockChain</module>
-		<module>SpringBoot-Maven-00-SecKill</module>
 		<module>SpringBoot-Maven-01-HelloWorld</module>
 		<module>SpringBoot-Maven-01-Servlet-Filter</module>
 		<module>SpringBoot-Maven-02-Value-Random</module>
