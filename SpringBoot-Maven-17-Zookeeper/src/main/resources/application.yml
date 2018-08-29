@@ -1,0 +1,6 @@
+zookeeper: 
+  server: 121.43.162.28:2181
+  sessionTimeoutMs: 6000
+  connectionTimeoutMs: 6000
+  maxRetries: 3
+  baseSleepTimeMs: 1000

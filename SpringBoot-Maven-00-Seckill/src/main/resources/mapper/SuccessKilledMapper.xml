@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.somnus.springboot.mapper.SuccessKilledMapper">
+  <resultMap id="BaseResultMap" type="com.somnus.springboot.commons.base.entity.SuccessKilled">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="seckill_id" jdbcType="BIGINT" property="seckillId" />
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <select id="getSeckillCount" parameterType="long" resultType="long">
+  	SELECT count(*) FROM success_killed 
+  	WHERE seckill_id = #{seckillId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteSuccessKilledBySeckillId" parameterType="long">
+  	DELETE FROM  success_killed WHERE seckill_id = #{seckillId,jdbcType=BIGINT}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.somnus.springboot.mybatis.mapper.TcimMerAccountMapper">
+  <resultMap id="BaseResultMap" type="com.somnus.springboot.mybatis.model.TcimMerAccount">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ACCT_ID" jdbcType="INTEGER" property="acctId" />
+    <result column="ACCT_CODE" jdbcType="VARCHAR" property="acctCode" />
+    <result column="MER_CODE" jdbcType="VARCHAR" property="merCode" />
+    <result column="ACCT_NAME" jdbcType="VARCHAR" property="acctName" />
+    <result column="CURRENCY" jdbcType="VARCHAR" property="currency" />
+    <result column="BANK_CODE" jdbcType="VARCHAR" property="bankCode" />
+    <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
+    <result column="BANK_KEY" jdbcType="VARCHAR" property="bankKey" />
+    <result column="BRANCH_CODE" jdbcType="VARCHAR" property="branchCode" />
+    <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName" />
+    <result column="BANK_ACCT_NO" jdbcType="VARCHAR" property="bankAcctNo" />
+    <result column="BANK_ACCT_NAME" jdbcType="VARCHAR" property="bankAcctName" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="MODIFY_BY" jdbcType="VARCHAR" property="modifyBy" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+</mapper>

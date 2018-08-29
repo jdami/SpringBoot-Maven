@@ -12,6 +12,7 @@
 	
 	<modules>
 		<module>SpringBoot-Maven-00-BlockChain</module>
+		<module>SpringBoot-Maven-00-Seckill</module>
 		<module>SpringBoot-Maven-01-HelloWorld</module>
 		<module>SpringBoot-Maven-01-Servlet-Filter</module>
 		<module>SpringBoot-Maven-02-Value-Random</module>
@@ -29,16 +30,18 @@
 		<module>SpringBoot-Maven-10-Jdbc</module>
 		<module>SpringBoot-Maven-11-Jpa</module>
 		<module>SpringBoot-Maven-12-MyBatis</module>
+		<module>SpringBoot-Maven-12-MyBatis-Druid</module>
 		<module>SpringBoot-Maven-13-Multiple</module>
 		<module>SpringBoot-Maven-14-Redis</module>
 		<module>SpringBoot-Maven-15-ActiveMQ</module>
 		<module>SpringBoot-Maven-16-RabbitMQ</module>
+		<module>SpringBoot-Maven-17-Zookeeper</module>
 	</modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.1.RELEASE</version>
+		<version>2.0.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 

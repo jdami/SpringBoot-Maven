@@ -1,4 +1,4 @@
-package com.somnus.springboot;
+package com.somnus.springboot.commons.base.distributedlock.redis;
 
 import java.io.IOException;
 

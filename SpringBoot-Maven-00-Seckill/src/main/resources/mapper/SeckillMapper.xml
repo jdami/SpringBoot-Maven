@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.somnus.springboot.mapper.SeckillMapper">
+  <resultMap id="BaseResultMap" type="com.somnus.springboot.commons.base.entity.Seckill">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="seckill_id" jdbcType="BIGINT" property="seckillId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    seckill_id, name, number, start_time, end_time, create_time, version
+  </sql>
+  
+  <update id="updateSeckillByOptimistic">
+  	UPDATE seckill SET number = number-#{number,jdbcType=BIGINT},version = version+1 
+  	WHERE seckill_id = #{seckillId,jdbcType=BIGINT}
+  	AND version = #{version,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateSeckillByPessimistic">
+  	UPDATE seckill SET number = number-1 
+  	WHERE seckill_id = #{seckillId,jdbcType=BIGINT} AND number>0
+  </update>
+  
+  <select id="selectByPrimaryKeyForUpdate" parameterType="long" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" /> 
+  	FROM seckill 
+  	WHERE seckill_id = #{seckillId,jdbcType=BIGINT} FOR UPDATE
+  </select>
+  
+</mapper>
